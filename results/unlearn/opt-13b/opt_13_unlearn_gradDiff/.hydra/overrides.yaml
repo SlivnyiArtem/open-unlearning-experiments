@@ -1,0 +1,6 @@
+- experiment=unlearn/tofu/default
+- forget_split=forget10
+- retain_split=retain90
+- holdout_split=holdout10
+- trainer=GradDiff
+- task_name=opt_13_unlearn_gradDiff

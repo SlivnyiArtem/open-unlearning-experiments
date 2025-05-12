@@ -25,7 +25,7 @@ eval_logs/
 eval_dumps/
 # C extensions
 *.so
-
+check.py
 # Distribution / packaging
 .Python
 build/

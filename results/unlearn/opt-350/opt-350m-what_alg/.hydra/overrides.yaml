@@ -1,0 +1,5 @@
+- experiment=unlearn/tofu/default
+- forget_split=forget10
+- retain_split=retain90
+- trainer=GradAscent
+- task_name=opt-350m

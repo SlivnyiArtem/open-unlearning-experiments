@@ -1,0 +1,6 @@
+- experiment=unlearn/tofu/default
+- forget_split=forget01
+- retain_split=retain99
+- holdout_split=holdout01
+- trainer=DPO
+- task_name=phi-1_5_DPO
