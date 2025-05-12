@@ -1,6 +1,7 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from omegaconf import DictConfig, open_dict
 import os
+from peft import AdaLoraConfig, get_peft_model
 import torch
 import logging
 
@@ -39,9 +40,43 @@ def get_model(model_cfg: DictConfig):
     tokenizer_args = model_cfg.tokenizer_args
     torch_dtype = get_dtype(model_args)
     try:
-        model = AutoModelForCausalLM.from_pretrained(
-            torch_dtype=torch_dtype, **model_args, cache_dir=hf_home
-        )
+        if model_args.get("quant", False):
+            model_args.__delattr__("quant") #Убрать костыль
+            print("QuantIsTrue")
+            bnb_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_quant_type="nf4",
+                bnb_4bit_compute_dtype=torch_dtype,
+            )
+            model = AutoModelForCausalLM.from_pretrained(
+                **model_args,
+                quantization_config=bnb_config,
+                cache_dir=hf_home
+            )
+            # model.to('cuda')
+
+            ada_lora_config = AdaLoraConfig(
+                init_r=8,  # начальный ранг
+                target_r=4,  # целевой ранг (может динамически уменьшаться)
+                beta1=0.85,  # коэффициент для адаптивного ранга
+                beta2=0.85,  # коэффициент для адаптивного ранга
+                tinit=20,  # шаги до начала адаптации ранга
+                tfinal=50,  # шаги до завершения адаптации ранга
+                total_step=200,
+                deltaT=10,  # интервал обновления ранга
+                lora_alpha=32,  # коэффициент масштабирования
+                lora_dropout=0.1,
+                target_modules=["q_proj", "v_proj"],  # модули для адаптации
+                task_type="CAUSAL_LM",  # тип задачи (для языковых моделей)
+            )
+
+            model = get_peft_model(model, ada_lora_config)
+        else:
+            model = AutoModelForCausalLM.from_pretrained(
+                torch_dtype=torch_dtype, **model_args, cache_dir=hf_home
+            )
+            model.to('cuda')
+
     except Exception as e:
         logger.warning(
             f"Model {model_args.pretrained_model_name_or_path} requested with {model_cfg.model_args}"

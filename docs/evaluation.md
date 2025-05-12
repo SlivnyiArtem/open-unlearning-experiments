@@ -16,7 +16,7 @@ python src/eval.py --config-name=eval.yaml \
   experiment=eval/tofu/llama2 \ 
   model=Llama-3.2-3B-Instruct \ 
   model.model_args.pretrained_model_name_or_path=<LOCAL_MODEL_PATH> \
-  task_name=SAMPLE_EVAL
+  task_name=opt-350m
 ```
 - `--config-name=eval.yaml`- sets task to be [`configs/eval.yaml`](../configs/eval.yaml)
 - `experiment=eval/tofu/default`- set experiment to use [`configs/eval/tofu/default.yaml`](../configs/eval/tofu/default.yaml)
@@ -31,7 +31,7 @@ python src/eval.py --config-name=eval.yaml \
   data_split=Books
   model=Llama-2-7b-hf.yaml \
   model.model_args.pretrained_model_name_or_path=<LOCAL_MODEL_PATH> \
-  task_name=SAMPLE_EVAL
+  task_name=opt-350m
 ```
 - `---config-name=eval.yaml`- this is set by default so can be omitted
 - `data_split=Books`- overrides the default MUSE data split (News). See [`configs/experiment/eval/muse/default.yaml`](../configs/experiment/eval/muse/default.yaml)

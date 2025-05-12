@@ -10,6 +10,7 @@ class DPO(GradDiff):
             self.ref_model = self._prepare_ref_model(self.model)
 
     def compute_loss(self, model, inputs, return_outputs=False):
+        print(inputs)
         forget_inputs = inputs["forget"]["original"]
         alternate_inputs = inputs["forget"]["alternate"]
 

@@ -13,12 +13,15 @@ def main(cfg: DictConfig):
     Args:
         cfg (DictConfig): Config to train
     """
+    # print(cfg.trainer)
     seed_everything(cfg.trainer.args.seed)
     mode = cfg.get("mode", "train")
     model_cfg = cfg.model
+    print(model_cfg)
     template_args = model_cfg.template_args
     assert model_cfg is not None, "Invalid model yaml passed in train config."
     model, tokenizer = get_model(model_cfg)
+
 
     # Load Dataset
     data_cfg = cfg.data
@@ -49,7 +52,6 @@ def main(cfg: DictConfig):
             model=model,
             tokenizer=tokenizer,
         )
-
     trainer, trainer_args = load_trainer(
         trainer_cfg=trainer_cfg,
         model=model,
@@ -60,6 +62,9 @@ def main(cfg: DictConfig):
         evaluator=evaluator,
         template_args=template_args,
     )
+
+    print(model)
+    print(tokenizer)
 
     if trainer_args.do_train:
         trainer.train()

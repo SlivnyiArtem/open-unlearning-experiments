@@ -69,7 +69,7 @@ for split in "${splits[@]}"; do
             holdout_split=${holdout_split} \
             model=${model} \
             task_name=${task_name} \
-            model.model_args.pretrained_model_name_or_path=saves/unlearn/${task_name} \
+            model.model_args.pretrained_model_name_or_path=saves/unlearn_${model}/${task_name} \
             paths.output_dir=saves/unlearn/${task_name}/evals \
             retain_logs_path=saves/eval/tofu_${model}_${retain_split}/TOFU_EVAL.json
         done

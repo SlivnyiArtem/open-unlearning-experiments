@@ -2,7 +2,7 @@
 
 defaults:
   - _self_
-  - model: Llama-3.2-3B-Instruct
+  - model: opt-1_3b
   - eval: tofu
   - paths: default
   - hydra: eval

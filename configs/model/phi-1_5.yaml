@@ -1,5 +1,6 @@
 model_args:
   pretrained_model_name_or_path: "microsoft/phi-1_5" # "locuslab/phi-1_5"
+  quant: true
 tokenizer_args:
   pretrained_model_name_or_path: "microsoft/phi-1_5"
 template_args:

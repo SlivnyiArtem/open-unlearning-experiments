@@ -1,10 +1,8 @@
 model_args:
-  pretrained_model_name_or_path: "meta-llama/Llama-2-7b-hf"
-  attn_implementation: 'flash_attention_2'
+  pretrained_model_name_or_path: "facebook/opt-350m"
   torch_dtype: bfloat16
-  quant: true
 tokenizer_args:
-  pretrained_model_name_or_path: "meta-llama/Llama-2-7b-hf"
+  pretrained_model_name_or_path: "facebook/opt-350m"
 template_args:  # Used in creating prompts for the dataset. See src/data/utils.py#preprocess_chat_instance.
   apply_chat_template: False
   user_start_tag: "Question: "

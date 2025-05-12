@@ -36,12 +36,12 @@ Experiment output directories are constructed based on the task mode (`train` / 
 python src/train.py --config-name=train.yaml experiment=finetune/tofu/default task_name=SAMPLE_TRAIN
 
 ## runs an unlearning training using experiment details from configs/unlearn/tofu/default.yaml
-# output directory will be constructed as: saves/unlearn/SAMPLE_UNLEARN
+# output directory will be constructed as: saves/unlearn/opt-350m
 python src/train.py --config-name=unlearn.yaml experiment=unlearn/tofu/default task_name=SAMPLE_TRAIN
 
 
 ## runs an evaluation using experiment details from configs/eval/muse/default.yaml
-python src/eval.py --config-name=eval.yaml experiment=eval/muse/default task_name=SAMPLE_EVAL
+python src/eval.py --config-name=eval.yaml experiment=eval/muse/default task_name=opt-350m
 ## Note: eval.yaml is the default config set in src/eval.py, so this argument can be omitted
 
 ## an extensively filled out configuration for an unlearning experiment
@@ -227,6 +227,6 @@ You may also simply run `CUDA_VISIBLE_DEVICES=0,1,.. python ...` to leverage Acc
 > Train runs using multiple accelerate processes will not be able to run evaluations during training. To achieve this, you may want to use DDP/model parallel (see #94) or use a single GPU to run the evaluation code directly on a saved model checkpoint like below
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 python src/eval.py experiment=eval/muse/default.yaml task_name=SAMPLE_EVAL \
+CUDA_VISIBLE_DEVICES=0 python src/eval.py experiment=eval/muse/default.yaml task_name=opt-350m \
 model.model_args.pretrained_model_name_or_path=saves/unlearn/muse_unlearn_exp \
 ```

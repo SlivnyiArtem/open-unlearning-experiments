@@ -16,6 +16,10 @@ class ForgetRetainDataset(Dataset):
         self.retain = retain
         self.anchor = anchor
 
+    def __repr__(self):
+        res = f"forget: {self.forget.data}, ret: {self.retain.data}, anchor = {self.anchor}"
+        return res
+
     def __len__(self):
         """Ensures the sampled dataset matches the anchor dataset's length."""
         if self.anchor == "forget":
