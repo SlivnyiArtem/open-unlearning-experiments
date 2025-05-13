@@ -229,3 +229,9 @@ This project is licensed under the MIT License. See the [`LICENSE`](LICENSE) fil
 ---
 
 [![Star History Chart](https://api.star-history.com/svg?repos=locuslab/open-unlearning&type=Date)](https://www.star-history.com/#locuslab/open-unlearning&Date)
+
+
+
+---------------------------------------------------------
+NB: This is a fork of the project for my own research purposes related to https://arxiv.org/pdf/2406.07933. 
+I am not the author of the original repository or have any relation to the authors of the article.
